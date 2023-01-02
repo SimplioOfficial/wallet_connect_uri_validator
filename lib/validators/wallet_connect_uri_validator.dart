@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wallet_connect_uri_validator/errors/wallet_connect_uri_validation_error.dart';
 import 'package:wallet_connect_uri_validator/wallet_connect_uri.dart';

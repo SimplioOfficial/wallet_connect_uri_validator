@@ -69,10 +69,10 @@ class WalletConnectUriV2Validator extends WalletConnectUriValidator {
 
   static void validateRelayProtocol(String protocol) {
     if (protocol.isEmpty) return;
-      throw const WalletConnectUriValidationError(
-        message: 'Invalid relay protocol',
-      );
-    }
+    throw const WalletConnectUriValidationError(
+      message: 'Invalid relay protocol',
+    );
+  }
 
   static void validateRelayData(String? data) {
     if (data == null) return;
@@ -82,12 +82,33 @@ class WalletConnectUriV2Validator extends WalletConnectUriValidator {
     );
   }
 
+  /// Symmetric key is a 256-bit sized hex string.
+  /// [reference](https://github.com/WalletConnect/WalletConnectSwiftV2/blob/main/Sources/WalletConnectKMS/Crypto/SymmetricKey.swift)
   static void validateSymKey(String key) {
-    final isValid = hex.decode(key).isNotEmpty;
-    if (isValid) return;
-    throw const WalletConnectUriValidationError(
-      message: 'Invalid symmetric key',
-    );
+    if (hex.decode(key).isEmpty) {
+      throw const WalletConnectUriValidationError(
+        message: 'Symmetric key is not valid hex string',
+      );
+    }
+
+    final bytes = Uint8List.fromList(utf8.encoder.convert(key));
+
+    if (bytes.isEmpty) {
+      throw const WalletConnectUriValidationError(
+        message: 'Symmetric key is empty',
+      );
+    }
+
+    switch (bytes.length) {
+      case 64:
+        break;
+      default:
+        throw const WalletConnectUriValidationError(
+          message: 'Symmetric key does not have a valid length',
+        );
+    }
+
+    return;
   }
 
   const WalletConnectUriV2Validator._({
