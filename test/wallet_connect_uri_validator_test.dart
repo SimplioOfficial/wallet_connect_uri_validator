@@ -10,23 +10,26 @@ const v1b =
 const v2 =
     'wc:c9e6d30fb34afe70a15c14e9337ba8e4d5a35dd695c39b94884b0ee60c69d168@2?relay-protocol=waku&symKey=7ff3e362f825ab868e20e767fe580d0311181632707e7c878cbeca0238d45b8b';
 
+// const v2 =
+//     'wc:c9e6d30fb34afe70a15c14e9337ba8e4d5a35dd695c39b94884b0ee60c69d168@2?relay-protocol=waku&symKey=1C8655F398D3CEBD3BAE5F866E5676AC0094CB4C0AE9B2F60A7D6DFDC28E1C9B9C514AC9A000F8FCD4287E27913A9C39B76CF1530FAEDFEC117E6C0D9D82C272';
+
 void main() {
   test('Parsing', () {
     final v1Uri = WalletConnectUriV1.parse(v1a);
     final v1Validator = WalletConnectUriV1Validator(v1Uri);
 
-    final v2Uri = WalletConnectUriV2.parse(v1b);
-    final v2Validator = WalletConnectUriV2Validator(v2Uri);
+    // final v2Uri = WalletConnectUriV2.parse(v1b);
+    // final v2Validator = WalletConnectUriV2Validator(v2Uri);
 
-    final uri = WalletConnectUri.parse(v1b);
+    final uri = WalletConnectUri.parse(v2);
     final validator = WalletConnectUriValidator.fromUri(uri);
 
     print(uri);
-    print(v1Validator.isValid);
+    // print(v2Validator.isValid);
     print(validator.isValid);
-    print(v1Validator.isValid == validator.isValid);
+    // print(v2Validator.isValid == validator.isValid);
     print(validator.errors);
-    print(v1Validator.errors);
+    // print(v2Validator.errors);
     print(uri.uri);
   });
 }
