@@ -2,6 +2,24 @@ import 'package:wallet_connect_uri_validator/validators/wallet_connect_uri_valid
 import 'package:wallet_connect_uri_validator/wallet_connect_uri.dart';
 
 mixin WalletConnectUriValidatorMixin {
+  bool isWalletConnectV1UriValid(String uri) {
+    try {
+      final wcUri = WalletConnectUriV1.parse(uri);
+      return WalletConnectUriV1Validator(wcUri).isValid;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  bool isWalletConnectV2UriValid(String uri) {
+    try {
+      final wcUri = WalletConnectUriV2.parse(uri);
+      return WalletConnectUriV2Validator(wcUri).isValid;
+    } catch (_) {
+      return false;
+    }
+  }
+
   bool isWalletConnectUriValid(String uri) {
     try {
       final wcUri = WalletConnectUri.parse(uri);
