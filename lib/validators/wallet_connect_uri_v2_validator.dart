@@ -68,17 +68,11 @@ class WalletConnectUriV2Validator extends WalletConnectUriValidator {
   }
 
   static void validateRelayProtocol(String protocol) {
-    try {
-      final decoded = Uri.decodeFull(protocol);
-      final isValid = Uri.parse(decoded).host.isNotEmpty;
-      if (isValid) return;
-      throw Exception();
-    } catch (_) {
+    if (protocol.isEmpty) return;
       throw const WalletConnectUriValidationError(
         message: 'Invalid relay protocol',
       );
     }
-  }
 
   static void validateRelayData(String? data) {
     if (data == null) return;
