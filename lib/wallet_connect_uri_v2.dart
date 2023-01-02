@@ -22,7 +22,7 @@ class WalletConnectUriV2 extends WalletConnectUri {
 
     return WalletConnectUriV2(
       protocol: u.scheme,
-      topic: u.authority,
+      topic: u.userInfo,
       version: WalletConnectVersion.parse(u.host),
       relayProtocol: params['relayProtocol'] ?? '',
       symKey: params['symKey'] ?? '',
