@@ -64,7 +64,10 @@ class WalletConnectUriV2Validator extends WalletConnectUriValidator {
   }
 
   static void validateVersion(WalletConnectVersion version) {
-    return WalletConnectUriValidator.validateVersion(version);
+    return WalletConnectUriValidator.validateVersion(
+      version,
+      compareTo: WalletConnectVersion.v2,
+    );
   }
 
   static void validateRelayProtocol(String protocol) {

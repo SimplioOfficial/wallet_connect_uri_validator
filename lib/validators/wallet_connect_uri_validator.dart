@@ -17,8 +17,17 @@ abstract class WalletConnectUriValidator {
     );
   }
 
-  static void validateVersion(WalletConnectVersion version) {
-    print('version: $version');
+  static void validateVersion(
+    WalletConnectVersion version, {
+    WalletConnectVersion? compareTo,
+  }) {
+    if (compareTo != null) {
+      if (version == compareTo) return;
+      throw WalletConnectUriValidationError(
+        message: 'Version does not match: $compareTo',
+      );
+    }
+
     if (version != WalletConnectVersion.unknown) return;
     throw const WalletConnectUriValidationError(
       message: 'Invalid version',
