@@ -1,7 +1,7 @@
 name: wallet_connect_uri_validator
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+repository: https://github.com/SimplioOfficial/wallet-connect-uri-validator.git
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
