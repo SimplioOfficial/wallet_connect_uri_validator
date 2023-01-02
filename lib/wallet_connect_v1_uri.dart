@@ -1,18 +1,18 @@
 part of 'wallet_connect_uri.dart';
 
-class WalletConnectUriV1 extends WalletConnectUri {
-  static WalletConnectUriV1 parse(String uri) {
+class WalletConnectV1Uri extends WalletConnectUri {
+  static WalletConnectV1Uri parse(String uri) {
     final u = WalletConnectUriConvertor.toUri(uri);
 
     if (u == null) {
       throw const FormatException(
-        'Invalid WalletConnect URI',
+        'Invalid WalletConnect v1 URI',
       );
     }
 
     final params = u.queryParameters;
 
-    return WalletConnectUriV1(
+    return WalletConnectV1Uri(
       protocol: u.scheme,
       topic: u.userInfo,
       version: WalletConnectVersion.parse(u.host),
@@ -24,7 +24,7 @@ class WalletConnectUriV1 extends WalletConnectUri {
   final String key;
   final String bridge;
 
-  WalletConnectUriV1({
+  WalletConnectV1Uri({
     required super.protocol,
     required super.topic,
     required super.version,
@@ -35,7 +35,7 @@ class WalletConnectUriV1 extends WalletConnectUri {
   @override
   String toString() {
     return '''
-        WalletConnectUriV1{
+        WalletConnectV1Uri{
           protocol: $protocol, 
           topic: $topic, 
           version: $version, 

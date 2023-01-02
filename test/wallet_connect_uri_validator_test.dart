@@ -15,8 +15,8 @@ const v2 =
 
 void main() {
   test('Parsing', () {
-    final v1Uri = WalletConnectUriV1.parse(v1a);
-    final v1Validator = WalletConnectUriV1Validator(v1Uri);
+    final v1Uri = WalletConnectV1Uri.parse(v1a);
+    final v1Validator = WalletConnectV1UriValidator(v1Uri);
 
     // final v2Uri = WalletConnectUriV2.parse(v1b);
     // final v2Validator = WalletConnectUriV2Validator(v2Uri);

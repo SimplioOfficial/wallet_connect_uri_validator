@@ -7,7 +7,7 @@ class WalletConnectUriConvertor {
   }
 
   static String toStr(WalletConnectUri uri) {
-    if (uri is WalletConnectUriV1) {
+    if (uri is WalletConnectV1Uri) {
       return Uri(
         scheme: uri.protocol,
         userInfo: uri.topic,
@@ -19,7 +19,7 @@ class WalletConnectUriConvertor {
       ).toString();
     }
 
-    if (uri is WalletConnectUriV2) {
+    if (uri is WalletConnectV2Uri) {
       return Uri(
         scheme: uri.protocol,
         userInfo: uri.topic,

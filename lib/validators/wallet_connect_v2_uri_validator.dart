@@ -6,9 +6,9 @@ part of 'wallet_connect_uri_validator.dart';
 /// relay-protocol - transport protocol for relaying messages
 /// relay-data - (optional) transport data for relaying messages
 
-class WalletConnectUriV2Validator extends WalletConnectUriValidator {
+class WalletConnectV2UriValidator extends WalletConnectUriValidator {
   static Set<WalletConnectUriValidationError> validate(
-    WalletConnectUriV2 uri,
+    WalletConnectV2Uri uri,
   ) {
     final Set<WalletConnectUriValidationError> errors = {};
 
@@ -116,16 +116,16 @@ class WalletConnectUriV2Validator extends WalletConnectUriValidator {
     return;
   }
 
-  const WalletConnectUriV2Validator._({
+  const WalletConnectV2UriValidator._({
     required this.uri,
     required this.errors,
   });
 
-  WalletConnectUriV2Validator(WalletConnectUriV2 uri)
+  WalletConnectV2UriValidator(WalletConnectV2Uri uri)
       : this._(uri: uri, errors: validate(uri));
 
   @override
-  final WalletConnectUriV2 uri;
+  final WalletConnectV2Uri uri;
 
   @override
   final Set<WalletConnectUriValidationError> errors;

@@ -8,9 +8,9 @@ part of 'wallet_connect_uri_validator.dart';
 /// key - symmetric key used for encryption
 /// bridge - url of the bridge server for relaying messages
 
-class WalletConnectUriV1Validator extends WalletConnectUriValidator {
+class WalletConnectV1UriValidator extends WalletConnectUriValidator {
   static Set<WalletConnectUriValidationError> validate(
-    WalletConnectUriV1 uri,
+    WalletConnectV1Uri uri,
   ) {
     final Set<WalletConnectUriValidationError> errors = {};
 
@@ -48,7 +48,6 @@ class WalletConnectUriV1Validator extends WalletConnectUriValidator {
   }
 
   static void validateTopic(String topic) {
-    print(topic);
     final isValid = Uuid.isValidUUID(fromString: topic);
     if (isValid) return;
     throw const WalletConnectUriValidationError(
@@ -68,7 +67,6 @@ class WalletConnectUriV1Validator extends WalletConnectUriValidator {
   }
 
   static void validateBridge(String bridge) {
-    print('bridge: $bridge');
     try {
       final decoded = Uri.decodeFull(bridge);
       Uri.parse(decoded).host.isNotEmpty;
@@ -80,7 +78,6 @@ class WalletConnectUriV1Validator extends WalletConnectUriValidator {
   }
 
   static void validateKey(String key) {
-    print('key: $key');
     try {
       hex.decode(key).isNotEmpty;
     } catch (_) {
@@ -90,16 +87,16 @@ class WalletConnectUriV1Validator extends WalletConnectUriValidator {
     }
   }
 
-  const WalletConnectUriV1Validator._({
+  const WalletConnectV1UriValidator._({
     required this.uri,
     required this.errors,
   });
 
-  WalletConnectUriV1Validator(WalletConnectUriV1 uri)
+  WalletConnectV1UriValidator(WalletConnectV1Uri uri)
       : this._(uri: uri, errors: validate(uri));
 
   @override
-  final WalletConnectUriV1 uri;
+  final WalletConnectV1Uri uri;
 
   @override
   final Set<WalletConnectUriValidationError> errors;

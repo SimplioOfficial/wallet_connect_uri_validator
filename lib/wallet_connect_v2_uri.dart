@@ -1,6 +1,6 @@
 part of 'wallet_connect_uri.dart';
 
-class WalletConnectUriV2 extends WalletConnectUri {
+class WalletConnectV2Uri extends WalletConnectUri {
   final String symKey;
 
   /// Default protocol is 'waku'.
@@ -9,18 +9,18 @@ class WalletConnectUriV2 extends WalletConnectUri {
   /// (optional) HEX encoded data to be sent to the relay server.
   final String? relayData;
 
-  static WalletConnectUriV2 parse(String uri) {
+  static WalletConnectV2Uri parse(String uri) {
     final u = WalletConnectUriConvertor.toUri(uri);
 
     if (u == null) {
       throw const FormatException(
-        'Invalid WalletConnect URI',
+        'Invalid WalletConnect v2 URI',
       );
     }
 
     final params = u.queryParameters;
 
-    return WalletConnectUriV2(
+    return WalletConnectV2Uri(
       protocol: u.scheme,
       topic: u.userInfo,
       version: WalletConnectVersion.parse(u.host),
@@ -30,7 +30,7 @@ class WalletConnectUriV2 extends WalletConnectUri {
     );
   }
 
-  const WalletConnectUriV2({
+  const WalletConnectV2Uri({
     required super.protocol,
     required super.topic,
     required super.version,
@@ -42,7 +42,7 @@ class WalletConnectUriV2 extends WalletConnectUri {
   @override
   String toString() {
     return '''
-        WalletConnectUriV2{
+        WalletConnectV2Uri{
           protocol: $protocol, 
           topic: $topic, 
           version: $version, 
