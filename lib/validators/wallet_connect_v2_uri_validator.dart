@@ -55,12 +55,17 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     return WalletConnectUriValidator.validateProtocol(protocol);
   }
 
-  // TODO - V2 topic is a sha256 hash. We cannot check its checksum. Therefore, we can validate only its length and byte size.
+  /// Topic v2 is uft8 encoded random generated string of default size 32 bytes.
   static void validateTopic(String topic) {
-    // TODO - implement topic validation.
-    throw const WalletConnectUriValidationError(
-      message: 'Invalid topic',
-    );
+    final bytes = Uint8List.fromList(utf8.encoder.convert(topic));
+
+    if (bytes.isEmpty) {
+      throw const WalletConnectUriValidationError(
+        message: 'Topic is empty',
+      );
+    }
+
+    return;
   }
 
   static void validateVersion(WalletConnectVersion version) {
