@@ -67,24 +67,21 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
   }
 
   static void validateBridge(String bridge) {
-    try {
-      final decoded = Uri.decodeFull(bridge);
-      Uri.parse(decoded).host.isNotEmpty;
-    } catch (_) {
-      throw const WalletConnectUriValidationError(
-        message: 'Invalid bridge',
-      );
-    }
+    final decoded = Uri.decodeFull(bridge);
+    if ((Uri.tryParse(decoded)?.host.isNotEmpty ?? false)) return;
+
+    throw const WalletConnectUriValidationError(
+      message: 'Invalid bridge',
+    );
   }
 
   static void validateKey(String key) {
-    try {
-      hex.decode(key).isNotEmpty;
-    } catch (_) {
-      throw const WalletConnectUriValidationError(
-        message: 'Invalid key',
-      );
-    }
+    // TODO - check if decode does not throw an exception
+    if (hex.decode(key).isNotEmpty) return;
+
+    throw const WalletConnectUriValidationError(
+      message: 'Invalid key',
+    );
   }
 
   const WalletConnectV1UriValidator._({
@@ -101,13 +98,3 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
   @override
   final Set<WalletConnectUriValidationError> errors;
 }
-
-
-
-
-// # 1.0
-// wc:8a5e5bdc-a0e4-4702-ba63-8f1a5655744f@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=41791102999c339c844880b23950704cc43aa840f3739e365323cda4dfa89e7a
-
-// # 2.0
-// wc:c9e6d30fb34afe70a15c14e9337ba8e4d5a35dd695c39b94884b0ee60c69d168@2?relay-protocol=waku&symKey=7ff3e362f825ab868e20e767fe580d0311181632707e7c878cbeca0238d45b8b
-// library wallet_connect_uri_validator;

@@ -84,18 +84,24 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     return;
   }
 
-  static void validateRelayData(String? data) {
-    if (data == null) return;
-    // TODO - implement relay data validation.
-    throw const WalletConnectUriValidationError(
-      message: 'Invalid relay data',
-    );
+  static void validateRelayData([String? data]) {
+    if (data == null || data.isEmpty) return;
+
+    try {
+      if (hex.decode(data).isEmpty) throw Exception();
+    } catch (_) {
+      throw const WalletConnectUriValidationError(
+        message: 'Relay Data are not valid hex string',
+      );
+    }
   }
 
   /// Symmetric key is a 256-bit sized hex string.
   /// [reference](https://github.com/WalletConnect/WalletConnectSwiftV2/blob/main/Sources/WalletConnectKMS/Crypto/SymmetricKey.swift)
   static void validateSymKey(String key) {
-    if (hex.decode(key).isEmpty) {
+    try {
+      if (hex.decode(key).isEmpty) throw Exception();
+    } catch (_) {
       throw const WalletConnectUriValidationError(
         message: 'Symmetric key is not valid hex string',
       );

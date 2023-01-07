@@ -1,4 +1,4 @@
-import 'package:wallet_connect_uri_validator/helpers/wallet_connect_uri_convertor.dart';
+import 'package:wallet_connect_uri_validator/src/helpers/wallet_connect_uri_convertor.dart';
 
 part 'wallet_connect_v1_uri.dart';
 part 'wallet_connect_v2_uri.dart';
@@ -51,7 +51,7 @@ abstract class WalletConnectUri {
   static WalletConnectUri? tryParse(String uri) {
     try {
       return WalletConnectUri.parse(uri);
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }

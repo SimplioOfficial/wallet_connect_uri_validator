@@ -1,9 +1,21 @@
-import 'package:wallet_connect_uri_validator/main.dart';
+import 'package:wallet_connect_uri_validator/src/wallet_connect_uri.dart';
 
 class WalletConnectUriConvertor {
   static Uri? toUri(String uri) {
-    final u = uri.startsWith('wc:') ? uri.replaceFirst('wc:', 'wc://') : uri;
-    return Uri.tryParse(u);
+    if (uri.isEmpty) return null;
+
+    final u = Uri.tryParse(
+      uri.startsWith('wc:') ? uri.replaceFirst('wc:', 'wc://') : uri,
+    );
+
+    if (u == null) return null;
+
+    if ([
+      u.host.isNotEmpty,
+      u.isScheme('wc'),
+    ].contains(false)) return null;
+
+    return u;
   }
 
   static String toStr(WalletConnectUri uri) {

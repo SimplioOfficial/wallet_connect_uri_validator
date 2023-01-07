@@ -1,5 +1,5 @@
-import 'package:wallet_connect_uri_validator/validators/wallet_connect_uri_validator.dart';
-import 'package:wallet_connect_uri_validator/wallet_connect_uri.dart';
+import 'package:wallet_connect_uri_validator/src/validators/wallet_connect_uri_validator.dart';
+import 'package:wallet_connect_uri_validator/src/wallet_connect_uri.dart';
 
 mixin WalletConnectUriValidatorMixin {
   bool isWalletConnectV1UriValid(String uri) {

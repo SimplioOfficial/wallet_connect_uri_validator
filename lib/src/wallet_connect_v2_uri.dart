@@ -24,10 +24,18 @@ class WalletConnectV2Uri extends WalletConnectUri {
       protocol: u.scheme,
       topic: u.userInfo,
       version: WalletConnectVersion.parse(u.host),
-      relayProtocol: params['relayProtocol'] ?? '',
+      relayProtocol: params['relay-protocol'] ?? '',
       symKey: params['symKey'] ?? '',
       relayData: params['relayData'],
     );
+  }
+
+  static WalletConnectV2Uri? tryParse(String uri) {
+    try {
+      return WalletConnectV2Uri.parse(uri);
+    } catch (_) {
+      return null;
+    }
   }
 
   const WalletConnectV2Uri({

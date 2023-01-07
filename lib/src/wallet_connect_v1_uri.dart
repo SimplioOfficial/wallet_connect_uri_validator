@@ -21,6 +21,14 @@ class WalletConnectV1Uri extends WalletConnectUri {
     );
   }
 
+  static WalletConnectV1Uri? tryParse(String uri) {
+    try {
+      return WalletConnectV1Uri.parse(uri);
+    } catch (_) {
+      return null;
+    }
+  }
+
   final String key;
   final String bridge;
 
