@@ -76,12 +76,13 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
   }
 
   static void validateKey(String key) {
-    // TODO - check if decode does not throw an exception
-    if (hex.decode(key).isNotEmpty) return;
-
-    throw const WalletConnectUriValidationError(
-      message: 'Invalid key',
-    );
+    try {
+      if (hex.decode(key).isEmpty) throw Exception();
+    } on FormatException catch (_) {
+      throw const WalletConnectUriValidationError(
+        message: 'Invalid key',
+      );
+    }
   }
 
   const WalletConnectV1UriValidator._({
