@@ -1,7 +1,7 @@
-import 'package:wallet_connect_uri_validator/helpers/wallet_connect_uri_convertor.dart';
+import 'package:wallet_connect_uri_validator/src/helpers/wallet_connect_uri_convertor.dart';
 
-part 'wallet_connect_uri_v1.dart';
-part 'wallet_connect_uri_v2.dart';
+part 'wallet_connect_v1_uri.dart';
+part 'wallet_connect_v2_uri.dart';
 
 enum WalletConnectVersion {
   unknown(0),
@@ -42,8 +42,8 @@ abstract class WalletConnectUri {
     if (u == null) throw const FormatException('Invalid WalletConnect URI');
 
     final v = WalletConnectVersion.parse(u.host);
-    if (v == WalletConnectVersion.v1) return WalletConnectUriV1.parse(uri);
-    if (v == WalletConnectVersion.v2) return WalletConnectUriV2.parse(uri);
+    if (v == WalletConnectVersion.v1) return WalletConnectV1Uri.parse(uri);
+    if (v == WalletConnectVersion.v2) return WalletConnectV2Uri.parse(uri);
 
     throw const FormatException('Invalid WalletConnect URI');
   }
@@ -51,7 +51,7 @@ abstract class WalletConnectUri {
   static WalletConnectUri? tryParse(String uri) {
     try {
       return WalletConnectUri.parse(uri);
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }
