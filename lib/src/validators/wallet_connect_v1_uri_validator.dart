@@ -1,14 +1,9 @@
 part of 'wallet_connect_uri_validator.dart';
 
-/// Semantics
-/// Required parameters are dependent on the WalletConnect protocol version:
-///
-/// For WalletConnect v1.0 protocol (version=1) the parameters are:
-///
-/// key - symmetric key used for encryption
-/// bridge - url of the bridge server for relaying messages
-
 class WalletConnectV1UriValidator extends WalletConnectUriValidator {
+  /// Validates a [WalletConnectV1Uri] object.
+  /// It runs a sequence of validation checks on the [WalletConnectV1Uri] object.
+  /// It records all the errors and returns them as a [Set] of [WalletConnectUriValidationError].
   static Set<WalletConnectUriValidationError> validate(
     WalletConnectV1Uri uri,
   ) {
@@ -47,6 +42,8 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
     return errors;
   }
 
+  /// Validate [WalletConnectV1Uri] topic.
+  /// It should be a valid UUID v4 string.
   static void validateTopic(String topic) {
     final isValid = Uuid.isValidUUID(fromString: topic);
     if (isValid) return;
@@ -55,10 +52,14 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
     );
   }
 
+  /// Validate [WalletConnectV1Uri] protocol.
+  /// It should be equal to the generic 'wc' url scheme.
   static void validateProtocol(String protocol) {
     return WalletConnectUriValidator.validateProtocol(protocol);
   }
 
+  /// Validate [WalletConnectV1Uri] version.
+  /// It should be equal to [WalletConnectVersion.v1].
   static void validateVersion(WalletConnectVersion version) {
     return WalletConnectUriValidator.validateVersion(
       version,
@@ -66,6 +67,8 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
     );
   }
 
+  /// Validate [WalletConnectV1Uri] bridge.
+  /// It should be a valid url encoded string.
   static void validateBridge(String bridge) {
     final decoded = Uri.decodeFull(bridge);
     if ((Uri.tryParse(decoded)?.host.isNotEmpty ?? false)) return;
@@ -75,6 +78,8 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
     );
   }
 
+  /// Validate [WalletConnectV1Uri] key.
+  /// It should be a valid hex encoded string.
   static void validateKey(String key) {
     try {
       if (hex.decode(key).isEmpty) throw Exception();
@@ -85,6 +90,12 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
     }
   }
 
+  @override
+  final WalletConnectV1Uri uri;
+
+  @override
+  final Set<WalletConnectUriValidationError> errors;
+
   const WalletConnectV1UriValidator._({
     required this.uri,
     required this.errors,
@@ -92,10 +103,4 @@ class WalletConnectV1UriValidator extends WalletConnectUriValidator {
 
   WalletConnectV1UriValidator(WalletConnectV1Uri uri)
       : this._(uri: uri, errors: validate(uri));
-
-  @override
-  final WalletConnectV1Uri uri;
-
-  @override
-  final Set<WalletConnectUriValidationError> errors;
 }

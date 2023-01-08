@@ -1,12 +1,9 @@
 part of 'wallet_connect_uri_validator.dart';
 
-/// For WalletConnect v2.0 protocol (version=2) the parameters are:
-///
-/// symKey - symmetric key used for encrypting messages over relay
-/// relay-protocol - transport protocol for relaying messages
-/// relay-data - (optional) transport data for relaying messages
-
 class WalletConnectV2UriValidator extends WalletConnectUriValidator {
+  /// Validates a [WalletConnectV2Uri] object.
+  /// It runs a sequence of validation checks on the [WalletConnectV2Uri] object.
+  /// It records all the errors and returns them as a [Set] of [WalletConnectUriValidationError].
   static Set<WalletConnectUriValidationError> validate(
     WalletConnectV2Uri uri,
   ) {
@@ -51,23 +48,28 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     return errors;
   }
 
+  /// Validate [WalletConnectV2Uri] protocol.
+  /// It should be equal to the generic 'wc' url scheme.
   static void validateProtocol(String protocol) {
     return WalletConnectUriValidator.validateProtocol(protocol);
   }
 
-  /// Topic v2 is uft8 encoded random generated string of default size 32 bytes.
+  /// Validate [WalletConnectV2Uri] topic.
+  /// It checks if the topic is hex encoded
+  /// but it does not checks its (32 bytes) size.
   static void validateTopic(String topic) {
-    final bytes = Uint8List.fromList(utf8.encoder.convert(topic));
-
-    if (bytes.isEmpty) {
+    try {
+      final bytes = Uint8List.fromList(utf8.encoder.convert(topic));
+      if (bytes.isEmpty) throw Exception();
+    } catch (_) {
       throw const WalletConnectUriValidationError(
         message: 'Topic is empty',
       );
     }
-
-    return;
   }
 
+  /// Validate [WalletConnectV2Uri] version.
+  /// It should be equal to [WalletConnectVersion.v2].
   static void validateVersion(WalletConnectVersion version) {
     return WalletConnectUriValidator.validateVersion(
       version,
@@ -75,6 +77,11 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     );
   }
 
+  /// Validate [WalletConnectV2Uri] relay protocol.
+  /// It checks if the relay protocol is empty.
+  /// There is no other validation for the relay protocol.
+  ///
+  /// TODO - we can find out the list of supported protocols.
   static void validateRelayProtocol(String protocol) {
     if (protocol.isEmpty) {
       throw const WalletConnectUriValidationError(
@@ -84,6 +91,8 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     return;
   }
 
+  /// Validate [WalletConnectV2Uri] relay data.
+  /// It checks if the relay data is hex encoded if provided.
   static void validateRelayData([String? data]) {
     if (data == null || data.isEmpty) return;
 
@@ -96,8 +105,9 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     }
   }
 
-  /// Symmetric key is a 256-bit sized hex string.
-  /// [reference](https://github.com/WalletConnect/WalletConnectSwiftV2/blob/main/Sources/WalletConnectKMS/Crypto/SymmetricKey.swift)
+  /// Validate [WalletConnectV2Uri] symmetric key.
+  /// It checks if the symmetric key is hex encoded.
+  /// and if it has a valid length.
   static void validateSymKey(String key) {
     try {
       if (hex.decode(key).isEmpty) throw Exception();
@@ -127,6 +137,12 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
     return;
   }
 
+  @override
+  final WalletConnectV2Uri uri;
+
+  @override
+  final Set<WalletConnectUriValidationError> errors;
+
   const WalletConnectV2UriValidator._({
     required this.uri,
     required this.errors,
@@ -134,13 +150,4 @@ class WalletConnectV2UriValidator extends WalletConnectUriValidator {
 
   WalletConnectV2UriValidator(WalletConnectV2Uri uri)
       : this._(uri: uri, errors: validate(uri));
-
-  @override
-  final WalletConnectV2Uri uri;
-
-  @override
-  final Set<WalletConnectUriValidationError> errors;
-
-  @override
-  bool get isValid => errors.isEmpty;
 }

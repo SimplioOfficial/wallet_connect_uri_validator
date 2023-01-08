@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wallet_connect_uri_validator/src/wallet_connect_uri.dart';
 
+// TODO - add test for returning original from `uri` getter.
+
 const wcV1UriValid =
     'wc:4acd9fa1-4350-4ddd-b31c-e22fa7bee8d0@1?bridge=https%3A%2F%2Fv.bridge.walletconnect.org&key=02eb8db0de49ccc186fb6bf5492d040148c538f0c27412a5431a90a1bf42a27d';
 

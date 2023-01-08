@@ -1,3 +1,5 @@
+/// WalletConnect URI validation error
+/// It is thrown when any [WalletConnectUri] is invalid.
 class WalletConnectUriValidationError {
   final String message;
 
