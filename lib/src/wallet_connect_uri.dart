@@ -52,6 +52,9 @@ abstract class WalletConnectUri {
   ///
   /// ### WalletConnect v1 URI:
   /// - It holds a valid UUID v4 format.
+  ///
+  /// ### WalletConnect v2 URI:
+  /// - It is a hex encoded [String] generated from a random 32 byte array.
   final String topic;
 
   /// Version is a version of WalletConnect protocol that is located as a host
