@@ -18,12 +18,16 @@ enum WalletConnectVersion {
     return unknown;
   }
 
-  static WalletConnectVersion from(double value) {
+  static WalletConnectVersion from(int value) {
     return WalletConnectVersion.values.firstWhere(
       (element) => element.version == value,
       orElse: () => unknown,
     );
   }
+
+  final int version;
+
+  const WalletConnectVersion(this.version);
 }
 
 abstract class WalletConnectUri {
