@@ -49,6 +49,9 @@ abstract class WalletConnectUri {
   /// Topic is a unique identifier for the session.
   /// It is always present in a valid WalletConnect URI.
   /// It has a different format for v1 and v2.
+  ///
+  /// ### WalletConnect v1 URI:
+  /// - It holds a valid UUID v4 format.
   final String topic;
 
   /// Version is a version of WalletConnect protocol that is located as a host
