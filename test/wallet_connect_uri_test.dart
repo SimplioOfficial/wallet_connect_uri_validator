@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:wallet_connect_uri_validator/src/wallet_connect_uri.dart';
+import 'package:test/test.dart';
+import 'package:wallet_connect_uri_validator/wallet_connect_uri_validator.dart';
 
 // TODO - add test for returning original from `uri` getter.
 

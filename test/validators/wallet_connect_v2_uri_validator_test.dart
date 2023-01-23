@@ -1,7 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:wallet_connect_uri_validator/src/errors/wallet_connect_uri_validation_error.dart';
-import 'package:wallet_connect_uri_validator/src/validators/wallet_connect_uri_validator.dart';
-import 'package:wallet_connect_uri_validator/src/wallet_connect_uri.dart';
+import 'package:test/test.dart';
+import 'package:wallet_connect_uri_validator/wallet_connect_uri_validator.dart';
 
 const wcV2UriValid =
     'wc:c9e6d30fb34afe70a15c14e9337ba8e4d5a35dd695c39b94884b0ee60c69d168@2?relay-protocol=waku&symKey=7ff3e362f825ab868e20e767fe580d0311181632707e7c878cbeca0238d45b8b';
