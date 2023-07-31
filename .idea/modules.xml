@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wallet_connect_uri_validator.iml" filepath="$PROJECT_DIR$/wallet_connect_uri_validator.iml" />
+    </modules>
+  </component>
+</project>

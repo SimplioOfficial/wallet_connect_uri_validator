@@ -16,9 +16,12 @@ enum WalletConnectVersion {
 
   /// Parse [WalletConnectVersion] from [String] that contains version number
   static WalletConnectVersion parse(String value) {
-    final s = int.tryParse(value) ?? 0;
-    if (s > 0) return from(s);
-    return unknown;
+    try {
+      final v = value.contains('@') ? value.split('@').last : value;
+      return from(int.parse(v));
+    } catch (_) {
+      return unknown;
+    }
   }
 
   /// Get [WalletConnectVersion] from [int] that contains version number
@@ -74,7 +77,7 @@ abstract class WalletConnectUri {
     final u = WalletConnectUriConvertor.toUri(uri);
     if (u == null) throw const FormatException('Invalid WalletConnect URI');
 
-    final v = WalletConnectVersion.parse(u.host);
+    final v = WalletConnectVersion.parse(u.path);
     if (v == WalletConnectVersion.v1) return WalletConnectV1Uri.parse(uri);
     if (v == WalletConnectVersion.v2) return WalletConnectV2Uri.parse(uri);
 

@@ -16,12 +16,13 @@ class WalletConnectV1Uri extends WalletConnectUri {
       );
     }
 
+    final topic = u.path.contains('@') ? u.path.split('@').first : u.path;
     final params = u.queryParameters;
 
     return WalletConnectV1Uri(
       protocol: u.scheme,
-      topic: u.userInfo,
-      version: WalletConnectVersion.parse(u.host),
+      topic: topic,
+      version: WalletConnectVersion.parse(u.path),
       bridge: params['bridge'] ?? '',
       key: params['key'] ?? '',
     );
